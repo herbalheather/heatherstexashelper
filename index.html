@@ -1,1 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heather's Texas Benefits Helper - Navigate Benefits with Confidence</title>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-blue: #003f7f;
+            --secondary-blue: #0066cc;
+            --accent-red: #bf0a30;
+            --light-gray: #f8f9fa;
+            --dark-gray: #343a40;
+            --success-green: #28a745;
+            --text-color: #212529;
+            --border-color: #dee2e6;
+        }
+        
+        .high-contrast {
+            --primary-blue: #000000;
+            --secondary-blue: #000000;
+            --accent-red: #000000;
+            --light-gray: #ffffff;
+            --dark-gray: #000000;
+            --text-color: #000000;
+            --border-color: #000000;
+            --bg-color: #ffffff;
+        }
+        
+        .high-contrast .card {
+            border: 3px solid #000000 !important;
+            background: #ffffff !important;
+        }
+        
+        .high-contrast .btn {
+            background: #000000 !important;
+            color: #ffffff !important;
+            border: 2px solid #000000 !important;
+        }
+        
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-gray);
+            font-size: 18px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            min-height: 44px;
+            min-width: 44px;
+        }
+        
+        .btn-primary {
+            background: var(--accent-red);
+            color: white;
+        }
+        
+        .btn-primary:hover, .btn-primary:focus {
+            background: #a00828;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(191, 10, 48, 0.3);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+        }
+        
+        .btn-secondary:hover, .btn-secondary:focus {
+            background: var(--primary-blue);
+            color: white;
+        }
+        
+        main {
+            padding: 40px 0;
+            min-height: calc(100% - 200px);
+        }
+        
+        .intro {
+            text-align: center;
+            margin-bottom: 50px;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .intro h2 {
+            color: var(--primary-blue);
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .intro p {
+            font-size: 1.2rem;
+            color: var(--dark-gray);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .card:hover, .card:focus-within {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            border-color: var(--secondary-blue);
+        }
+        
+        .card h3 {
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-icon {
+            font-size: 2rem;
+        }
+        
+        .card p {
+            color: var(--dark-gray);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .eligibility-hint {
+            font-size: 0.9rem;
+            color: var(--success-green);
+            font-weight: 600;
+        }
+        
+        footer {
+            background: var(--dark-gray);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .footer-links a:hover, .footer-links a:focus {
+            color: var(--accent-red);
+        }
+        
+        .language-toggle {
+            position: relative;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        /* Accessibility improvements */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--accent-red);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 1000;
+        }
+        
+        .skip-link:focus {
+            top: 6px;
+        }
+        
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        /* Focus styles */
+        .btn:focus, .card:focus {
+            outline: 3px solid var(--accent-red);
+            outline-offset: 2px;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .programs-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .intro {
+                padding: 25px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        /* Print styles */
+        @media print {
+            .controls, .btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <header role="banner">
+        <div class="container">
+            <div class="header-content">
+                <h1>🏠 Heather's Texas Benefits Helper</h1>
+                <div class="controls">
+                    <button id="languageToggle" class="btn btn-secondary" aria-label="Switch to Spanish">
+                        🌐 Español
+                    </button>
+                    <button id="contrastToggle" class="btn btn-secondary" aria-label="Toggle high contrast mode">
+                        🔆 High Contrast
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content" role="main">
+        <div class="container">
+            <section class="intro">
+                <h2 id="welcome-title">Welcome to Your Benefits Journey</h2>
+                <p id="welcome-text">
+                    Getting the help you need shouldn't be complicated. We're here to guide you through Texas benefit programs step-by-step, 
+                    with clear instructions and helpful tips for families, seniors, and veterans.
+                </p>
+            </section>
+
+            <section aria-labelledby="programs-heading">
+                <h2 id="programs-heading" class="sr-only">Available Benefit Programs</h2>
+                <div class="programs-grid">
+                    <article class="card" tabindex="0">
+                        <h3><span class="card-icon">🍎</span><span id="snap-title">SNAP Food Benefits</span></h3>
+                        <p id="snap-desc">Monthly funds to help buy groceries and feed your family healthy meals.</p>
+                        <div class="card-footer">
+                            <span class="eligibility-hint" id="snap-hint">✓ Most families qualify</span>
+                            <button class="btn btn-primary" onclick="navigateToProgram('snap')" aria-describedby="snap-desc">
+                                <span id="snap-button">Start Here</span>
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="card" tabindex="0">
+                        <h3><span class="card-icon">🏥</span><span id="medicare-title">Medicare</span></h3>
+                        <p id="medicare-desc">Health insurance for seniors 65+ and people with disabilities.</p>
+                        <div class="card-footer">
+                            <span class="eligibility-hint" id="medicare-hint">✓ Age 65+ or disabled</span>
+                            <button class="btn btn-primary" onclick="navigateToProgram('medicare')" aria-describedby="medicare-desc">
+                                <span id="medicare-button">Start Here</span>
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="card" tabindex="0">
+                        <h3><span class="card-icon">💰</span><span id="ssi-title">SSI Disability</span></h3>
+                        <p id="ssi-desc">Monthly payments for people with disabilities who have limited income.</p>
+                        <div class="card-footer">
+                            <span class="eligibility-hint" id="ssi-hint">✓ Disability required</span>
+                            <button class="btn btn-primary" onclick="navigateToProgram('ssi')" aria-describedby="ssi-desc">
+                                <span id="ssi-button">Start Here</span>
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="card" tabindex="0">
+                        <h3><span class="card-icon">🏥</span><span id="medicaid-title">Texas Medicaid</span></h3>
+                        <p id="medicaid-desc">Free or low-cost health coverage for families, children, and pregnant women.</p>
+                        <div class="card-footer">
+                            <span class="eligibility-hint" id="medicaid-hint">✓ Income-based</span>
+                            <button class="btn btn-primary" onclick="navigateToProgram('medicaid')" aria-describedby="medicaid-desc">
+                                <span id="medicaid-button">Start Here</span>
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="card" tabindex="0">
+                        <h3><span class="card-icon">👨‍👩‍👧‍👦</span><span id="tanf-title">TANF Cash Assistance</span></h3>
+                        <p id="tanf-desc">Temporary cash help for families with children in need.</p>
+                        <div class="card-footer">
+                            <span class="eligibility-hint" id="tanf-hint">✓ Families with kids</span>
+                            <button class="btn btn-primary" onclick="navigateToProgram('tanf')" aria-describedby="tanf-desc">
+                                <span id="tanf-button">Start Here</span>
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="card" tabindex="0">
+                        <h3><span class="card-icon">🎖️</span><span id="veterans-title">Veterans Benefits</span></h3>
+                        <p id="veterans-desc">Healthcare, disability, education, and housing benefits for Texas veterans.</p>
+                        <div class="card-footer">
+                            <span class="eligibility-hint" id="veterans-hint">✓ Military service</span>
+                            <button class="btn btn-primary" onclick="navigateToProgram('veterans')" aria-describedby="veterans-desc">
+                                <span id="veterans-button">Start Here</span>
+                            </button>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="https://heatherherbalhome.pages.dev/" target="_blank" rel="noopener noreferrer" id="heather-home-link">Heather's Home</a>
+                    <a href="https://www.hhs.texas.gov/about-hhs/contact-us" target="_blank" rel="noopener noreferrer" id="contact-link">Contact & Feedback</a>
+                    <a href="https://www.hhs.texas.gov/" target="_blank" rel="noopener noreferrer" id="about-link">Texas HHS</a>
+                    <a href="https://www.hhs.texas.gov/about-hhs/your-rights/privacy-policy" target="_blank" rel="noopener noreferrer" id="privacy-link">Privacy Policy</a>
+                </div>
+                <div>
+                    <span id="last-updated">Last Updated: December 2024</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Language translations
+        const translations = {
+            en: {
+                'languageToggle': '🌐 Español',
+                'welcome-title': 'Welcome to Your Benefits Journey',
+                'welcome-text': 'Getting the help you need shouldn\'t be complicated. We\'re here to guide you through Texas benefit programs step-by-step, with clear instructions and helpful tips for families, seniors, and veterans.',
+                'snap-title': 'SNAP Food Benefits',
+                'snap-desc': 'Monthly funds to help buy groceries and feed your family healthy meals.',
+                'snap-hint': '✓ Most families qualify',
+                'snap-button': 'Start Here',
+                'medicare-title': 'Medicare',
+                'medicare-desc': 'Health insurance for seniors 65+ and people with disabilities.',
+                'medicare-hint': '✓ Age 65+ or disabled',
+                'medicare-button': 'Start Here',
+                'ssi-title': 'SSI Disability',
+                'ssi-desc': 'Monthly payments for people with disabilities who have limited income.',
+                'ssi-hint': '✓ Disability required',
+                'ssi-button': 'Start Here',
+                'medicaid-title': 'Texas Medicaid',
+                'medicaid-desc': 'Free or low-cost health coverage for families, children, and pregnant women.',
+                'medicaid-hint': '✓ Income-based',
+                'medicaid-button': 'Start Here',
+                'tanf-title': 'TANF Cash Assistance',
+                'tanf-desc': 'Temporary cash help for families with children in need.',
+                'tanf-hint': '✓ Families with kids',
+                'tanf-button': 'Start Here',
+                'veterans-title': 'Veterans Benefits',
+                'veterans-desc': 'Healthcare, disability, education, and housing benefits for Texas veterans.',
+                'veterans-hint': '✓ Military service',
+                'veterans-button': 'Start Here',
+                'heather-home-link': 'Heather\'s Home',
+                'contact-link': 'Contact & Feedback',
+                'about-link': 'Texas HHS',
+                'privacy-link': 'Privacy Policy',
+                'last-updated': 'Last Updated: December 2024'
+            },
+            es: {
+                'languageToggle': '🌐 English',
+                'welcome-title': 'Bienvenido a Tu Jornada de Beneficios',
+                'welcome-text': 'Obtener la ayuda que necesitas no debería ser complicado. Estamos aquí para guiarte a través de los programas de beneficios de Texas paso a paso, con instrucciones claras y consejos útiles para familias, personas mayores y veteranos.',
+                'snap-title': 'Beneficios de Comida SNAP',
+                'snap-desc': 'Fondos mensuales para ayudar a comprar comestibles y alimentar a tu familia con comidas saludables.',
+                'snap-hint': '✓ La mayoría de las familias califican',
+                'snap-button': 'Comenzar Aquí',
+                'medicare-title': 'Medicare',
+                'medicare-desc': 'Seguro de salud para personas mayores de 65+ y personas con discapacidades.',
+                'medicare-hint': '✓ Edad 65+ o discapacitado',
+                'medicare-button': 'Comenzar Aquí',
+                'ssi-title': 'Discapacidad SSI',
+                'ssi-desc': 'Pagos mensuales para personas con discapacidades que tienen ingresos limitados.',
+                'ssi-hint': '✓ Se requiere discapacidad',
+                'ssi-button': 'Comenzar Aquí',
+                'medicaid-title': 'Medicaid de Texas',
+                'medicaid-desc': 'Cobertura de salud gratuita o de bajo costo para familias, niños y mujeres embarazadas.',
+                'medicaid-hint': '✓ Basado en ingresos',
+                'medicaid-button': 'Comenzar Aquí',
+                'tanf-title': 'Asistencia en Efectivo TANF',
+                'tanf-desc': 'Ayuda temporal en efectivo para familias con niños en necesidad.',
+                'tanf-hint': '✓ Familias con niños',
+                'tanf-button': 'Comenzar Aquí',
+                'veterans-title': 'Beneficios para Veteranos',
+                'veterans-desc': 'Beneficios de atención médica, discapacidad, educación y vivienda para veteranos de Texas.',
+                'veterans-hint': '✓ Servicio militar',
+                'veterans-button': 'Comenzar Aquí',
+                'heather-home-link': 'Casa de Heather',
+                'contact-link': 'Contacto y Comentarios',
+                'about-link': 'Texas HHS',
+                'privacy-link': 'Política de Privacidad',
+                'last-updated': 'Última Actualización: Diciembre 2024'
+            }
+        };
+
+        let currentLanguage = 'en';
+        let isHighContrast = false;
+
+        // Language toggle functionality
+        document.getElementById('languageToggle').addEventListener('click', function() {
+            currentLanguage = currentLanguage === 'en' ? 'es' : 'en';
+            updateLanguage();
+            
+            // Update button aria-label
+            const newLabel = currentLanguage === 'en' ? 'Switch to Spanish' : 'Cambiar a inglés';
+            this.setAttribute('aria-label', newLabel);
+        });
+
+        function updateLanguage() {
+            const translation = translations[currentLanguage];
+            
+            Object.keys(translation).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = translation[key];
+                    } else {
+                        element.textContent = translation[key];
+                    }
+                }
+            });
+
+            // Update document language
+            document.documentElement.lang = currentLanguage;
+        }
+
+        // High contrast toggle
+        document.getElementById('contrastToggle').addEventListener('click', function() {
+            isHighContrast = !isHighContrast;
+            document.body.classList.toggle('high-contrast', isHighContrast);
+            
+            const label = isHighContrast ? 'Disable high contrast mode' : 'Enable high contrast mode';
+            this.setAttribute('aria-label', label);
+            
+            // Save preference
+            localStorage.setItem('highContrast', isHighContrast);
+        });
+
+        // Navigation function
+        function navigateToProgram(program) {
+            const programUrls = {
+                'snap': 'https://www.yourtexasbenefits.com/Learn/Home',
+                'medicare': 'https://www.medicare.gov/',
+                'ssi': 'https://www.ssa.gov/benefits/ssi/',
+                'medicaid': 'https://www.yourtexasbenefits.com/Learn/Home',
+                'tanf': 'https://www.yourtexasbenefits.com/Learn/Home',
+                'veterans': 'https://www.tvc.texas.gov/'
+            };
+            
+            // Open the official website in a new tab
+            window.open(programUrls[program], '_blank', 'noopener,noreferrer');
+        }
+
+
+
+        // Load saved preferences
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load high contrast preference
+            const savedContrast = localStorage.getItem('highContrast');
+            if (savedContrast === 'true') {
+                isHighContrast = true;
+                document.body.classList.add('high-contrast');
+                document.getElementById('contrastToggle').setAttribute('aria-label', 'Disable high contrast mode');
+            }
+            
+            // Load language preference
+            const savedLanguage = localStorage.getItem('language');
+            if (savedLanguage && savedLanguage !== 'en') {
+                currentLanguage = savedLanguage;
+                updateLanguage();
+            }
+        });
+
+        // Save language preference when changed
+        document.getElementById('languageToggle').addEventListener('click', function() {
+            localStorage.setItem('language', currentLanguage);
+        });
+
+        // Keyboard navigation improvements
+        document.addEventListener('keydown', function(e) {
+            // Allow Enter key to activate cards
+            if (e.key === 'Enter' && e.target.classList.contains('card')) {
+                const button = e.target.querySelector('.btn-primary');
+                if (button) {
+                    button.click();
+                }
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99425b0c55e8f079',t:'MTc2MTQwMjAzNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
 
